@@ -14,7 +14,18 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeOrmConfig), 
+    TypeOrmModule.forRoot(
+      {
+        type: 'mysql' ,
+        host: process.env.DATABASE_HOST,
+        port: 3306,
+        username: 'root',
+        password: 'usuario',
+        database: 'FernanPOP',
+        entities: ['dist/**/*.entity{.ts,.js}'],
+        synchronize: true,
+      }
+    ), 
     TypeOrmModule.forFeature([ProductEntity, UserEntity]),
     JwtModule.register({
       secret: '1234',
